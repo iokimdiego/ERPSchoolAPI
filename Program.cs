@@ -1,9 +1,8 @@
-﻿string nome = "";
-int idade = 0;
+﻿Aluno aluno = new Aluno(); //
 
 ExibirTitulo();
-CadastrarUsuario(ref nome, ref idade);
-ExibirMenu(ref nome, ref idade);
+CadastrarUsuario(aluno);
+ExibirMenu(aluno);
 
 // ===================MÉTODOS===================
 
@@ -13,10 +12,10 @@ void ExibirTitulo()
 }
 
 
-void CadastrarUsuario(ref string nome, ref int idade)
+void CadastrarUsuario(Aluno aluno)
 {
     Console.Write("Digite seu nome:");
-    nome = Console.ReadLine() ?? string.Empty;
+    aluno.Nome = Console.ReadLine() ?? string.Empty;
 
     bool idadeValida = false;
 
@@ -25,9 +24,12 @@ void CadastrarUsuario(ref string nome, ref int idade)
         Console.Write("Digite sua idade:");
         string idadeInput = Console.ReadLine() ?? string.Empty;
 
-        if (int.TryParse(idadeInput, out idade))
+        if (int.TryParse(idadeInput, out int idade)) // Tenta converter a entrada para um número inteiro, se for possível, atribui à variável idade
         {
-            if (idade >= 0)
+            aluno.Idade = idade; // Atribui a idade ao objeto aluno
+            // nunca use out ou ref direto em propriedades, isso pode causar problemas de encapsulamento e manutenção do código. Use variáveis locais para manipular os dados antes de atribuí-los às propriedades.
+
+            if (aluno.Idade >= 0)
             {
                 idadeValida = true;
             }
@@ -43,7 +45,7 @@ void CadastrarUsuario(ref string nome, ref int idade)
     }
 }
 
-void ExibirMenu(ref string nome, ref int idade)
+void ExibirMenu(Aluno aluno)
 {
     while (true)
     {
@@ -59,13 +61,13 @@ void ExibirMenu(ref string nome, ref int idade)
         switch (opcao)
         {
             case "1":
-                Console.WriteLine($"\nNome: {nome}");
-                Console.WriteLine($"Idade: {idade}");
+                Console.WriteLine($"\nNome: {aluno.Nome}");
+                Console.WriteLine($"Idade: {aluno.Idade}");
                 break;
 
             case "2":
                 Console.Write("\nDigite o novo nome: ");
-                nome = Console.ReadLine() ?? string.Empty;
+                aluno.Nome = Console.ReadLine() ?? string.Empty;
                 Console.WriteLine("Nome atualizado com sucesso!");
                 break;
 
@@ -80,7 +82,7 @@ void ExibirMenu(ref string nome, ref int idade)
                     {
                         if (novaIdade >= 0)
                         {
-                            idade = novaIdade;
+                            aluno.Idade = novaIdade;
                             novaIdadeValida = true;
                             Console.WriteLine("Idade atualizada com sucesso!");
                         }
