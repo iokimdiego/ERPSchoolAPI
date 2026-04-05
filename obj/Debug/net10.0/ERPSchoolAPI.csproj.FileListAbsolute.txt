@@ -1,0 +1,15 @@
+C:\dev\ERPSchoolAPI\bin\Debug\net10.0\ERPSchoolAPI.exe
+C:\dev\ERPSchoolAPI\bin\Debug\net10.0\ERPSchoolAPI.deps.json
+C:\dev\ERPSchoolAPI\bin\Debug\net10.0\ERPSchoolAPI.runtimeconfig.json
+C:\dev\ERPSchoolAPI\bin\Debug\net10.0\ERPSchoolAPI.dll
+C:\dev\ERPSchoolAPI\bin\Debug\net10.0\ERPSchoolAPI.pdb
+C:\dev\ERPSchoolAPI\obj\Debug\net10.0\ERPSchoolAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\ERPSchoolAPI\obj\Debug\net10.0\ERPSchoolAPI.AssemblyInfoInputs.cache
+C:\dev\ERPSchoolAPI\obj\Debug\net10.0\ERPSchoolAPI.AssemblyInfo.cs
+C:\dev\ERPSchoolAPI\obj\Debug\net10.0\ERPSchoolAPI.csproj.CoreCompileInputs.cache
+C:\dev\ERPSchoolAPI\obj\Debug\net10.0\ERPSchoolAPI.sourcelink.json
+C:\dev\ERPSchoolAPI\obj\Debug\net10.0\ERPSchoolAPI.dll
+C:\dev\ERPSchoolAPI\obj\Debug\net10.0\refint\ERPSchoolAPI.dll
+C:\dev\ERPSchoolAPI\obj\Debug\net10.0\ERPSchoolAPI.pdb
+C:\dev\ERPSchoolAPI\obj\Debug\net10.0\ERPSchoolAPI.genruntimeconfig.cache
+C:\dev\ERPSchoolAPI\obj\Debug\net10.0\ref\ERPSchoolAPI.dll
