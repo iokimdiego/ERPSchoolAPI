@@ -1,87 +1,106 @@
-# 🎓 ERPSchoolAPI
+# ERPSchoolAPI
 
-API desenvolvida em C# com .NET com o objetivo de simular um sistema ERP escolar, permitindo o gerenciamento de alunos, cursos e operações acadêmicas básicas.
+![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-Console-239120?logo=csharp&logoColor=white)
+![Status](https://img.shields.io/badge/status-em%20desenvolvimento-orange)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Ultimo commit](https://img.shields.io/github/last-commit/iokimdiego/ERPSchoolAPI?label=ultimo%20commit)
+![Versao](https://img.shields.io/badge/versao-0.1.0-blue)
 
----
+Projeto em C# com .NET, atualmente em formato de aplicacao de console, que simula o fluxo inicial de um ERP escolar focado no cadastro e manutencao de dados de aluno.
 
-## 🚀 Objetivo do Projeto
+## Objetivo
 
-Este projeto faz parte da minha jornada de especialização como Desenvolvedor Backend em C#/.NET, com foco na construção de APIs REST seguindo boas práticas de arquitetura, organização e versionamento.
+Consolidar fundamentos de backend com C#/.NET por meio da evolucao incremental do sistema, iniciando com regras de negocio no console e evoluindo para uma API REST.
 
-A proposta é evoluir progressivamente este sistema, saindo de uma aplicação simples até uma API robusta e escalável.
-
----
-
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias
 
 - C#
-- .NET (Console / ASP.NET Core futuramente)
-- Git & GitHub
+- .NET 10 (Console Application)
+- Git e GitHub
 
----
+## Funcionalidades implementadas
 
-## 📌 Funcionalidades Atuais
+- Cadastro inicial de aluno (nome e idade)
+- Validacao de entrada para idade com `int.TryParse`
+- Bloqueio de idade negativa
+- Menu interativo com opcoes para:
+  - Visualizar dados do aluno
+  - Atualizar nome
+  - Atualizar idade (com validacao)
+  - Encerrar o sistema
 
-- Entrada de dados via console
-- Interação básica com o usuário
-- Estrutura inicial do projeto
+## Estrutura atual
 
----
-
-## 🔄 Próximas Evoluções
-
-- [ ] Transformar em API REST com ASP.NET Core
-- [ ] Implementar CRUD de Alunos
-- [ ] Implementar CRUD de Cursos
-- [ ] Integração com banco de dados (SQL Server)
-- [ ] Aplicação de princípios de Clean Architecture
-- [ ] Autenticação e autorização (JWT)
-- [ ] Documentação com Swagger
-
----
-
-## 📂 Estrutura do Projeto
+```text
 ERPSchoolAPI/
-│
-├── Program.cs
-└── README.md
+|- Aluno.cs
+|- Program.cs
+|- ERPSchoolAPI.csproj
+`- README.md
+```
 
+## Como executar
 
----
+1. Clone o repositorio:
 
-## ▶️ Como Executar
-
-1. Clone o repositório:
+```bash
 git clone https://github.com/iokimdiego/ERPSchoolAPI.git
+```
 
 2. Acesse a pasta do projeto:
+
+```bash
 cd ERPSchoolAPI
+```
 
-2. Execute o projeto:
+3. Execute a aplicacao:
+
+```bash
 dotnet run
+```
 
----
+## Exemplo de uso no terminal
 
-## 🧠 Aprendizados
+```text
+=== SISTEMA ERP SCHOOL API ===
+Digite seu nome: Diego
+Digite sua idade: 25
 
-Este projeto está sendo desenvolvido com foco em:
+=== MENU PRINCIPAL ===
+1. Ver dados
+2. Atualizar nome
+3. Atualizar idade
+0. Sair
+Escolha uma opcao: 1
 
-- Boas práticas de versionamento com Git
-- Escrita de commits profissionais
-- Estruturação de projetos escaláveis
-- Evolução contínua como desenvolvedor backend
+Nome: Diego
+Idade: 25
 
----
+=== MENU PRINCIPAL ===
+1. Ver dados
+2. Atualizar nome
+3. Atualizar idade
+0. Sair
+Escolha uma opcao: 0
+Saindo do sistema. Ate logo!
+```
 
-## 📬 Contato
+## Proximas evolucoes
 
-Caso queira trocar ideias ou oportunidades:
+- [ ] Migrar para ASP.NET Core Web API
+- [ ] Implementar CRUD de alunos
+- [ ] Implementar CRUD de cursos
+- [ ] Integrar com banco de dados SQL Server
+- [ ] Aplicar principios de arquitetura limpa
+- [ ] Adicionar autenticacao e autorizacao com JWT
+- [ ] Publicar documentacao com Swagger
 
-LinkedIn: https://www.linkedin.com/in/iokimdiego
-Portfólio: https://www.iokimdiego.dev.br
+## Contato
 
----
+- LinkedIn: https://www.linkedin.com/in/iokimdiego
+- Portfolio: https://www.iokimdiego.dev.br
 
-## 📄 Licença
+## Licenca
 
-Este projeto está sob a licença MIT.
+Projeto sob licenca MIT.
