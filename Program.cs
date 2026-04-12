@@ -26,6 +26,12 @@ string RemoverAcentos(string texto)
     return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
 }
 
+bool NomeContem(string nome, string busca)
+{
+    return RemoverAcentos(nome.ToLower())
+        .Contains(RemoverAcentos(busca.ToLower()));
+}
+
 void ExibirTitulo()
 {
     Console.WriteLine("=== SISTEMA ERP ESCOLA ===");
@@ -38,7 +44,7 @@ void CadastrarAluno(List<Aluno> alunos)
     {
         Aluno aluno = new Aluno();
 
-        Console.Write("Digite o nome do aluno ou 0 para voltar: ");
+        Console.Write("Digite o nome do alunno ou 0 para voltar: ");
         aluno.Nome = Console.ReadLine() ?? string.Empty;
 
         if (aluno.Nome == "0")
@@ -103,13 +109,8 @@ void BuscarAluno(List<Aluno> alunos)
             return;
         }
 
-        // var aluno = alunos.FirstOrDefault(a => 
-        //     RemoverAcentos(a.Nome.ToLower()) == RemoverAcentos(nomeBusca.ToLower())
-        // );
-
         var alunosEncontrados = alunos
-        .Where(a => RemoverAcentos(a.Nome.ToLower())
-        .Contains(RemoverAcentos(nomeBusca.ToLower())))
+        .Where(a => NomeContem(a.Nome, nomeBusca))
         .ToList();
 
         if (alunosEncontrados.Count == 0)
@@ -122,10 +123,7 @@ void BuscarAluno(List<Aluno> alunos)
             
             foreach (var a in alunosEncontrados)
             {
-                // if (RemoverAcentos(a.Nome.ToLower()) == RemoverAcentos(nomeBusca.ToLower()))
-                {
-                    Console.WriteLine($"Aluno encontrado: {a.Nome}, Idade: {a.Idade}");
-                }
+                Console.WriteLine($"Aluno encontrado: {a.Nome}, Idade: {a.Idade}");
             }
         }
     }
