@@ -1,43 +1,79 @@
-﻿List<Aluno> alunos = new List<Aluno>(); // Cria uma lista para armazenar os objetos do tipo Aluno. Essa lista pode ser usada para gerenciar múltiplos alunos, permitindo adicionar, remover ou listar os alunos cadastrados no sistema.
+﻿using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Globalization;
+using System.Text;
+
+List<Aluno> alunos = new List<Aluno>(); // Cria uma lista para armazenar os objetos do tipo Aluno. Essa lista pode ser usada para gerenciar múltiplos alunos, permitindo adicionar, remover ou listar os alunos cadastrados no sistema.
 
 ExibirTitulo();
 ExibirMenu(alunos);
 
 // ===================MÉTODOS===================
 
+string RemoverAcentos(string texto)
+{
+    var normalizedString = texto.Normalize(NormalizationForm.FormD);
+    var stringBuilder = new StringBuilder();
+
+    foreach (var c in normalizedString)
+    {
+        if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+        {
+            stringBuilder.Append(c);
+        }
+    }
+
+    return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+}
+
 void ExibirTitulo()
 {
-    Console.WriteLine("=== SISTEMA ERP SCHOOL API ===");
+    Console.WriteLine("=== SISTEMA ERP ESCOLA ===");
 }
 
 
-void CadastrarAluno(List<Aluno> alunos) // O método CadastrarAluno recebe uma lista de alunos como parâmetro, permitindo que o aluno cadastrado seja adicionado à lista. Isso é útil para gerenciar múltiplos alunos no sistema, possibilitando operações como listar, atualizar ou remover alunos posteriormente.
+void CadastrarAluno(List<Aluno> alunos)
 {
-    Aluno aluno = new Aluno(); // Cria uma nova instância da classe Aluno para armazenar os dados do aluno que será cadastrado. Cada vez que o método for chamado, um novo objeto Aluno será criado para armazenar as informações do aluno atual.
-    
-    Console.Write("Digite o nome do aluno: ");
-    aluno.Nome = Console.ReadLine() ?? string.Empty;
-
-    bool idadeValida = false;
-
-    while (!idadeValida)
+    while (true)
     {
-        Console.Write("Digite a idade do aluno: ");
-        string idadeInput = Console.ReadLine() ?? "";
+        Aluno aluno = new Aluno();
 
-        if (int.TryParse(idadeInput, out int idade)) // Tenta converter a entrada para um número inteiro, se for possível, atribui à variável idade
-        {
-            aluno.Idade = idade; // Atribui a idade ao objeto aluno
-            idadeValida = true; // Define a variável idadeValida como true para sair do loop, indicando que a idade foi inserida corretamente
+        Console.Write("Digite o nome do aluno ou 0 para voltar: ");
+        aluno.Nome = Console.ReadLine() ?? string.Empty;
 
-        }
-        else
+        if (aluno.Nome == "0")
         {
-            Console.WriteLine("Entrada inválida. Por favor, digite um número inteiro para a idade.");
+            Console.WriteLine("Operação de cadastro cancelada.");
+            return;
         }
+
+        bool idadeValida = false;
+
+        while (!idadeValida)
+        {
+            Console.Write("Digite a idade do aluno: ");
+            string idadeInput = Console.ReadLine() ?? "";
+
+            if (int.TryParse(idadeInput, out int idade))
+            {
+                aluno.Idade = idade;
+                idadeValida = true;
+            }
+            else
+            {
+                Console.WriteLine("Entrada inválida.");
+            }
+        }
+
+        alunos.Add(aluno);
+        Console.WriteLine($"Aluno {aluno.Nome} cadastrado com sucesso!");
+
+        Console.Write("Deseja cadastrar outro aluno? (S/N): ");
+        string resposta = Console.ReadLine()?.ToUpper() ?? "";
+
+        if (resposta != "S")
+            break;
     }
-    alunos.Add(aluno); // Adiciona o objeto aluno à lista de alunos, permitindo que ele seja gerenciado e listado posteriormente
-    Console.WriteLine("Aluno cadastrado com sucesso!");
 }
 
 void ListarAlunos(List<Aluno> alunos) // O método ListarAlunos recebe uma lista de alunos como parâmetro, permitindo que ele acesse e exiba as informações de todos os alunos cadastrados na lista. Isso é útil para mostrar uma visão geral dos alunos registrados no sistema, facilitando a consulta e o gerenciamento dos dados dos alunos.
@@ -48,11 +84,65 @@ void ListarAlunos(List<Aluno> alunos) // O método ListarAlunos recebe uma lista
         Console.WriteLine("Nenhum aluno cadastrado.");
         return;
     }
-    else
+    foreach (var aluno in alunos)
     {
-        foreach (var aluno in alunos)
+        Console.WriteLine($"Nome: {aluno.Nome}, Idade: {aluno.Idade}");
+    }
+}
+
+void BuscarAluno(List<Aluno> alunos)
+{
+    while (true)
+    {
+        Console.Write("\nDigite o nome do aluno para buscar ou 0 para voltar: ");
+        string nomeBusca = Console.ReadLine() ?? string.Empty;
+
+        if (nomeBusca == "0")
         {
-            Console.WriteLine($"Nome: {aluno.Nome}, Idade: {aluno.Idade}");
+            Console.WriteLine("Operação de busca cancelada.");
+            return;
+        }
+
+        var aluno = alunos.FirstOrDefault(a => 
+            RemoverAcentos(a.Nome.ToLower()) == RemoverAcentos(nomeBusca.ToLower())
+        );
+
+        if (aluno == null)
+        {
+            Console.WriteLine("Aluno não encontrado. Tente novamente.");
+        }
+        else
+        {
+            Console.WriteLine($"Aluno encontrado: {aluno.Nome}, Idade: {aluno.Idade}");
+        }
+    }
+}
+
+void RemoverAluno(List<Aluno> alunos)
+{
+    while (true)
+    {
+        Console.Write("\nDigite o nome do aluno para remover ou 0 para voltar: ");
+        string nomeRemover = Console.ReadLine() ?? string.Empty;
+
+        if (nomeRemover == "0")
+        {
+            Console.WriteLine("Operação cancelada.");
+            return;
+        }
+
+        var aluno = alunos.FirstOrDefault(a => 
+            RemoverAcentos(a.Nome.ToLower()) == RemoverAcentos(nomeRemover.ToLower())
+        );
+
+        if (aluno == null)
+        {
+            Console.WriteLine("Aluno não encontrado. Tente novamente.");
+        }
+        else
+        {
+            alunos.Remove(aluno);
+            Console.WriteLine($"Aluno {aluno.Nome} removido com sucesso.");
         }
     }
 }
@@ -62,8 +152,10 @@ void ExibirMenu(List<Aluno> alunos) // O método ExibirMenu recebe uma lista de 
     while (true)
     {
         Console.WriteLine("\n=== MENU ===");
-        Console.WriteLine("1. Cadastrar aluno: ");
-        Console.WriteLine("2. Listar alunos cadastrados: ");
+        Console.WriteLine("1. Cadastrar aluno");
+        Console.WriteLine("2. Listar alunos cadastrados");
+        Console.WriteLine("3. Buscar aluno por nome");
+        Console.WriteLine("4. Remover aluno");
         Console.WriteLine("0. Sair");
 
         Console.Write("Escolha uma opção: ");
@@ -77,6 +169,14 @@ void ExibirMenu(List<Aluno> alunos) // O método ExibirMenu recebe uma lista de 
 
             case "2":
                 ListarAlunos(alunos); // Chama o método ListarAlunos passando a lista de alunos para exibir as informações de todos os alunos cadastrados
+                break;
+
+            case "3":
+                BuscarAluno(alunos); // Chama o método BuscarAluno passando a lista de alunos para buscar um aluno específico pelo nome
+                break;
+
+            case "4":
+                RemoverAluno(alunos); // Chama o método RemoverAluno passando a lista de alunos para remover um aluno específico pelo nome
                 break;
 
             case "0":
