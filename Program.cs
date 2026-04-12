@@ -103,17 +103,30 @@ void BuscarAluno(List<Aluno> alunos)
             return;
         }
 
-        var aluno = alunos.FirstOrDefault(a => 
-            RemoverAcentos(a.Nome.ToLower()) == RemoverAcentos(nomeBusca.ToLower())
-        );
+        // var aluno = alunos.FirstOrDefault(a => 
+        //     RemoverAcentos(a.Nome.ToLower()) == RemoverAcentos(nomeBusca.ToLower())
+        // );
 
-        if (aluno == null)
+        var alunosEncontrados = alunos
+        .Where(a => RemoverAcentos(a.Nome.ToLower())
+        .Contains(RemoverAcentos(nomeBusca.ToLower())))
+        .ToList();
+
+        if (alunosEncontrados.Count == 0)
         {
-            Console.WriteLine("Aluno não encontrado. Tente novamente.");
+            Console.WriteLine("Nenhum aluno encontrado. Tente novamente.");
         }
         else
         {
-            Console.WriteLine($"Aluno encontrado: {aluno.Nome}, Idade: {aluno.Idade}");
+            Console.WriteLine("\n=== ALUNOS ENCONTRADOS ===");
+            
+            foreach (var a in alunosEncontrados)
+            {
+                // if (RemoverAcentos(a.Nome.ToLower()) == RemoverAcentos(nomeBusca.ToLower()))
+                {
+                    Console.WriteLine($"Aluno encontrado: {a.Nome}, Idade: {a.Idade}");
+                }
+            }
         }
     }
 }
@@ -147,6 +160,68 @@ void RemoverAluno(List<Aluno> alunos)
     }
 }
 
+void EditarAluno(List<Aluno> alunos)
+{
+    while (true)
+    {
+        Console.Write("\nDigite o nome do aluno que deseja atualizar ou 0 para voltar: ");
+        string nomeBusca = Console.ReadLine() ?? string.Empty;
+
+        if (nomeBusca == "0")
+        {
+            Console.WriteLine("Operação cancelada.");
+            return;
+        }
+
+        var aluno = alunos.FirstOrDefault(a => 
+            RemoverAcentos(a.Nome.ToLower()) == RemoverAcentos(nomeBusca.ToLower())
+        );
+
+        if (aluno == null)
+        {
+            Console.WriteLine("Aluno não encontrado. Tente novamente.");
+        }
+        else
+        {
+            Console.WriteLine($"Aluno encontrado: {aluno.Nome}, Idade: {aluno.Idade}");
+
+            Console.Write("\nNovo nome (ou Enter para manter): ");
+            string novoNome = Console.ReadLine() ?? "";
+
+            if (!string.IsNullOrWhiteSpace(novoNome))
+            {
+                aluno.Nome = novoNome;
+            }
+
+            bool idadeValida = false;
+
+            while (!idadeValida)
+            {
+                Console.Write("Nova idade (ou Enter para manter): ");
+                string entrada = Console.ReadLine() ?? "";
+
+                if (string.IsNullOrWhiteSpace(entrada))
+                {
+                    break; // mantém idade atual
+                }
+
+                if (int.TryParse(entrada, out int novaIdade))
+                {
+                    aluno.Idade = novaIdade;
+                    idadeValida = true;
+                }
+                else
+                {
+                    Console.WriteLine("Idade inválida.");
+                }
+            }
+
+            Console.WriteLine($"Aluno {aluno.Nome} atualizado com sucesso!");
+            return;
+        }
+    }
+}
+
 void ExibirMenu(List<Aluno> alunos) // O método ExibirMenu recebe uma lista de alunos como parâmetro, permitindo que ele chame os métodos CadastrarAluno e ListarAlunos, que também recebem a lista de alunos como argumento. Isso é importante para garantir que as operações de cadastro e listagem de alunos sejam realizadas na mesma lista, mantendo a consistência dos dados e permitindo que as alterações feitas em um método sejam refletidas no outro.
 {
     while (true)
@@ -156,6 +231,7 @@ void ExibirMenu(List<Aluno> alunos) // O método ExibirMenu recebe uma lista de 
         Console.WriteLine("2. Listar alunos cadastrados");
         Console.WriteLine("3. Buscar aluno por nome");
         Console.WriteLine("4. Remover aluno");
+        Console.WriteLine("5. Editar aluno");
         Console.WriteLine("0. Sair");
 
         Console.Write("Escolha uma opção: ");
@@ -177,6 +253,10 @@ void ExibirMenu(List<Aluno> alunos) // O método ExibirMenu recebe uma lista de 
 
             case "4":
                 RemoverAluno(alunos); // Chama o método RemoverAluno passando a lista de alunos para remover um aluno específico pelo nome
+                break;
+
+            case "5":
+                EditarAluno(alunos); // Chama o método EditarAluno passando a lista de alunos para editar as informações de um aluno específico pelo nome
                 break;
 
             case "0":
