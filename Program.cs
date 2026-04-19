@@ -1,4 +1,4 @@
-﻿using ERPSchoolAPI.Services;
+﻿using SchoolERP.Services;
 
 var service = new AlunoService();
 

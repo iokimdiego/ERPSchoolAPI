@@ -1,8 +1,8 @@
 using System.Globalization;
 using System.Text;
-using ERPSchoolAPI.Models;
+using SchoolERP.Models;
 
-namespace ERPSchoolAPI.Services;
+namespace SchoolERP.Services;
 
 public class AlunoService
 {
