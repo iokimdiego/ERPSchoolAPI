@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("ERPSchoolAPI")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("ERPSchoolAPI.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8aeaad9b4800fa185636058f414f8182880aed2e")]
-[assembly: System.Reflection.AssemblyProductAttribute("ERPSchoolAPI")]
-[assembly: System.Reflection.AssemblyTitleAttribute("ERPSchoolAPI")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b5ab9a2331716279d7989fafb22b748e64d8498b")]
+[assembly: System.Reflection.AssemblyProductAttribute("ERPSchoolAPI.Web")]
+[assembly: System.Reflection.AssemblyTitleAttribute("ERPSchoolAPI.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Gerado pela classe WriteCodeFragment do MSBuild.
